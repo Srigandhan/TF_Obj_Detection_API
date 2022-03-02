@@ -121,7 +121,7 @@ def main(unused_argv):
 #       model_name = "obj_api_test"
 #       model_uri = URI+"/model"
 #       new_model_version = mlflow.register_model(model_uri, model_name)
-      print(new_model_version)
-      print("MLflow model saved with above version")
+#       print(new_model_version)
+#       print("MLflow model saved with above version")
 if __name__ == '__main__':
   tf.compat.v1.app.run()
