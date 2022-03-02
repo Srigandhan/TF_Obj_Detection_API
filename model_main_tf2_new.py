@@ -108,19 +108,19 @@ def main(unused_argv):
     
     mlflow.tensorflow.autolog()
     #mlflow.set_experiment(experiment_name="/Users/srigandhan.v@cdsazure.onmicrosoft.com/Obj_Api_Test")
-    with mlflow.start_run() as run:
-      with strategy.scope():
-        model_lib_v2.train_loop(
-            pipeline_config_path=FLAGS.pipeline_config_path,
-            model_dir=FLAGS.model_dir,
-            train_steps=FLAGS.num_train_steps,
-            use_tpu=FLAGS.use_tpu,
-            checkpoint_every_n=FLAGS.checkpoint_every_n,
-            record_summaries=FLAGS.record_summaries)
-      URI = run.info.artifact_uri
-      model_name = "obj_api_test"
-      model_uri = URI+"/model"
-      new_model_version = mlflow.register_model(model_uri, model_name)
+    #with mlflow.start_run() as run:
+    with strategy.scope():
+      model_lib_v2.train_loop(
+          pipeline_config_path=FLAGS.pipeline_config_path,
+          model_dir=FLAGS.model_dir,
+          train_steps=FLAGS.num_train_steps,
+          use_tpu=FLAGS.use_tpu,
+          checkpoint_every_n=FLAGS.checkpoint_every_n,
+          record_summaries=FLAGS.record_summaries)
+#       URI = run.info.artifact_uri
+#       model_name = "obj_api_test"
+#       model_uri = URI+"/model"
+#       new_model_version = mlflow.register_model(model_uri, model_name)
       print(new_model_version)
       print("MLflow model saved with above version")
 if __name__ == '__main__':
