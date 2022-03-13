@@ -111,7 +111,7 @@ def main(unused_argv):
     else:
       strategy = tf.compat.v2.distribute.MirroredStrategy()
     
-    mlflow.tensorflow.autolog()
+#     mlflow.tensorflow.autolog()
     #mlflow.set_experiment(experiment_name="/Users/srigandhan.v@cdsazure.onmicrosoft.com/Obj_Api_Test")
     #mlflow.set_experiment(experiment_name="/Users/shamsher_thind@ad.infosys.com/Obj_Api_Test")
 #     with mlflow.start_run() as run:
@@ -132,10 +132,10 @@ def main(unused_argv):
   train_steps = train_and_eval_dict['train_steps']
   
   # specify the experiment to log to
-  mlflow.set_experiment('/dev_projects/Beeldherkenning/object_detectie/object_detectie')
+#   mlflow.set_experiment('/dev_projects/Beeldherkenning/object_detectie/object_detectie')
   # autolog the model
-  mlflow.tensorflow.autolog(every_n_iter=1)
-  with mlflow.start_run(run_name = 'object_detector') as run:  
+  mlflow.tensorflow.autolog()
+  with mlflow.start_run() as run:  
     # get the current run_id (for conveniance)
     mlflow.set_tag("model_id", run.info.run_id)
     mlflow.set_tag("experiment_id", run.info.experiment_id)
