@@ -30,6 +30,11 @@ python model_main_tf2.py -- \
 from absl import flags
 import tensorflow.compat.v2 as tf
 from object_detection import model_lib_v2
+from object_detection import model_hparams
+from object_detection import model_lib
+
+import mlflow
+import mlflow.tensorflow
 
 flags.DEFINE_string('pipeline_config_path', None, 'Path to pipeline config '
                     'file.')
@@ -109,8 +114,36 @@ def main(unused_argv):
     mlflow.tensorflow.autolog()
     #mlflow.set_experiment(experiment_name="/Users/srigandhan.v@cdsazure.onmicrosoft.com/Obj_Api_Test")
     #mlflow.set_experiment(experiment_name="/Users/shamsher_thind@ad.infosys.com/Obj_Api_Test")
-    with mlflow.start_run() as run:
-      with strategy.scope():
+#     with mlflow.start_run() as run:
+#       with strategy.scope():
+#         model_lib_v2.train_loop(
+#             pipeline_config_path=FLAGS.pipeline_config_path,
+#             model_dir=FLAGS.model_dir,
+#             train_steps=FLAGS.num_train_steps,
+#             use_tpu=FLAGS.use_tpu,
+#             checkpoint_every_n=FLAGS.checkpoint_every_n,
+#             record_summaries=FLAGS.record_summaries)
+#       URI = run.info.artifact_uri
+#       model_name = "obj_api_test"
+# #       model_uri = URI+"/model"
+#       #new_model_version = mlflow.register_model(model_uri, model_name)
+#       print(URI)
+#       print("MLflow UIRI above")
+  train_steps = train_and_eval_dict['train_steps']
+  
+  # specify the experiment to log to
+  mlflow.set_experiment('/dev_projects/Beeldherkenning/object_detectie/object_detectie')
+  # autolog the model
+  mlflow.tensorflow.autolog(every_n_iter=1)
+  with mlflow.start_run(run_name = 'object_detector') as run:  
+    # get the current run_id (for conveniance)
+    mlflow.set_tag("model_id", run.info.run_id)
+    mlflow.set_tag("experiment_id", run.info.experiment_id)
+
+    if FLAGS.checkpoint_dir:
+      if FLAGS.eval_training_data:
+        name = 'training_data'
+    with strategy.scope():
         model_lib_v2.train_loop(
             pipeline_config_path=FLAGS.pipeline_config_path,
             model_dir=FLAGS.model_dir,
@@ -118,11 +151,5 @@ def main(unused_argv):
             use_tpu=FLAGS.use_tpu,
             checkpoint_every_n=FLAGS.checkpoint_every_n,
             record_summaries=FLAGS.record_summaries)
-      URI = run.info.artifact_uri
-      model_name = "obj_api_test"
-#       model_uri = URI+"/model"
-      #new_model_version = mlflow.register_model(model_uri, model_name)
-      print(URI)
-      print("MLflow UIRI above")
 if __name__ == '__main__':
   tf.compat.v1.app.run()
