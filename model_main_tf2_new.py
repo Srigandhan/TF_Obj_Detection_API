@@ -129,7 +129,7 @@ def main(unused_argv):
 #       #new_model_version = mlflow.register_model(model_uri, model_name)
 #       print(URI)
 #       print("MLflow UIRI above")
-  train_steps = train_and_eval_dict['train_steps']
+#   train_steps = train_and_eval_dict['train_steps']
   
   # specify the experiment to log to
 #   mlflow.set_experiment('/dev_projects/Beeldherkenning/object_detectie/object_detectie')
