@@ -107,7 +107,7 @@ def main(unused_argv):
       strategy = tf.compat.v2.distribute.MirroredStrategy()
     
     mlflow.tensorflow.autolog()
-    #mlflow.set_experiment(experiment_name="/Users/srigandhan.v@cdsazure.onmicrosoft.com/Obj_Api_Test")
+    mlflow.set_experiment(experiment_name="/Users/srigandhan.v@cdsazure.onmicrosoft.com/Dummy_Test_1")
     # mlflow.set_experiment(experiment_name="/Users/shamsher_thind@ad.infosys.com/Obj_Api_Test")
     # with mlflow.start_run() as run:
     with strategy.scope():
