@@ -107,7 +107,8 @@ def main(unused_argv):
 
     mlflow.end_run()
     mlflow.tensorflow.autolog()
-    mlflow.set_experiment(experiment_name="/Users/srigandhan.v@cdsazure.onmicrosoft.com/Mlflow_Metrics")
+#     mlflow.set_experiment(experiment_name="/Users/srigandhan.v@cdsazure.onmicrosoft.com/Mlflow_Metrics")
+    mlflow.set_experiment(experiment_name="/Users/srigandhan.sv@aerospace.rolls-royce.com/Mlflow_Metrics")
     with strategy.scope():
       mlflow.start_run(run_name="TF2_COCO_Train")#Added
       
