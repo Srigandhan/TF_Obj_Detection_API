@@ -107,6 +107,7 @@ def main(unused_argv):
 
     mlflow.end_run()
     mlflow.tensorflow.autolog()
+    mlflow.set_experiment(experiment_name="/Users/srigandhan.v@cdsazure.onmicrosoft.com/Dummy_Test_Metrics")
     with strategy.scope():
       mlflow.start_run(run_name="TF2_COCO_Train")#Added
       
